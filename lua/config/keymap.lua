@@ -366,7 +366,7 @@ wk.add({
     { "<leader>qa", ":QuartoActivate<cr>", desc = "[a]ctivate" },
     { "<leader>qe", require('otter').export, desc = "[e]xport" },
     { "<leader>qh", ":QuartoHelp ", desc = "[h]elp" },
-    { "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "[p]review" },
+    { "<leader>qp", ":lua require'quarto'.quartoPreview({args='--port 10001 --host 41eb1c561fe6'})<cr>", desc = "[p]review" },
     { "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "[q]uiet preview" },
     { "<leader>qr", group = "[r]un" },
     { "<leader>qra", ":QuartoSendAll<cr>", desc = "run [a]ll" },

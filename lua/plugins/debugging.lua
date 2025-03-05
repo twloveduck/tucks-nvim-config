@@ -28,6 +28,7 @@ return {
         'rcarriga/nvim-dap-ui',
         'mfussenegger/nvim-dap-python',
         'theHamsta/nvim-dap-virtual-text',
+        'vadimcn/codelldb'
       },
     },
     config = function()
@@ -36,7 +37,8 @@ return {
       local ui = require 'dapui'
       require('dapui').setup()
       require('dap-python').setup()
-      require('dap.ext.vscode').load_launchjs 'launch.json'
+      -- require("plugins.dap.codelldb")
+      -- require('dap.ext.vscode').load_launchjs 'launch.json'
 
       require('nvim-dap-virtual-text').setup {
         -- Hides tokens, secrets, and other sensitive information
@@ -69,6 +71,51 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         ui.close()
       end
+    --   local codelldb = require("utils.codelldb")
+    --   dap.configurations.c = {
+    --   {
+    --     name = "C Debug And Run",
+    --     type = "codelldb",
+    --     request = "launch",
+    --     program = function()
+    --       -- local cwd = vim.fn.getcwd()
+    --       -- if (file.exists(cwd, "Makefile")) then
+    --       -- Todo. Then invoke make commands
+    --       -- Then ask user to provide execute file
+    --         os.execute("make")
+    --         return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+    --       -- else
+    --         -- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+    --         -- local fileName = vim.fn.expand("%:t:r")
+    --         -- if (not file.exists(cwd, "bin")) then
+    --         --   -- create this directory
+    --         --   os.execute("mkdir " .. "bin")
+    --         -- end
+    --         -- local cmd = "!gcc -g % -o bin/" .. fileName
+    --         -- -- First, compile it
+    --         -- vim.cmd(cmd)
+    --         -- -- Then, return it
+    --         -- return "${fileDirname}/bin/" .. fileName
+    --       -- end
+    --     end,
+    --     cwd = "${workspaceFolder}",
+    --     stopOnEntry = false
+    --   },
+    -- }
+    --
+    -- dap.adapters.codelldb = {
+    --   type = "server",
+    --   port = "${port}",
+    --   executable = {
+    --     -- CHANGE THIS to your path!
+    --     command = codelldb.codelldb_path,
+    --     args = { "--port", "${port}" },
+    --
+    --     -- On windows you may have to uncomment this:
+    --     -- detached = false,
+    --   }
+    -- }
+    
     end,
     keys = {
       { '<leader>db', ":lua require'dap'.toggle_breakpoint()<cr>", desc = 'debug [b]reakpoint' },

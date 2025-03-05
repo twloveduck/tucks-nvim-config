@@ -267,10 +267,10 @@ return {
       --   flags = lsp_flags
       -- }
 
-      -- lspconfig.clangd.setup {
-      --   capabilities = capabilities,
-      --   flags = lsp_flags,
-      -- }
+      lspconfig.clangd.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
 
       lspconfig.rust_analyzer.setup{
         capabilities = capabilities,
@@ -282,6 +282,32 @@ return {
           }
         }
      }
+
+      lspconfig.texlab.setup({ 
+        settings = { 
+          texlab = { 
+            auxDirectory = "build",
+            build = { 
+              executable = "tectonic",
+              args = {
+                "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates"
+              },
+              -- args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f", "-auxdir=build" }, 
+              onSave = true, 
+              forwardSearchAfter = true, 
+            },
+            chktex = { 
+              onOpenAndSave = true, 
+            }, 
+            forwardSearch = { 
+              executable = "evince-synctex", 
+              args = { 
+                "-f", "%l", "%p", '"code -g %f:%l"' 
+              }, 
+            },
+          }, 
+        }, 
+      })
 
       -- lspconfig.ruff_lsp.setup {
       --   capabilities = capabilities,
